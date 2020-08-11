@@ -3,22 +3,23 @@ import logo from './logo.svg';
 import './App.css';
 // import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import classes from './App.css'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 
-
-const StyledButton = styled.button`
-background-color: ${props => props.alt ? 'red': 'green'};
-color: white;
-font: inherit;
-border: 1px solid blue;
-padding: 8px;
-cursor: pointer;
-&:hover {
-  background-color: ${props => props.alt ? 'salmon': 'lightgreen'};
-  color: brown;
-}
-`;
+// const StyledButton = styled.button`
+// background-color: ${props => props.alt ? 'red': 'green'};
+// color: white;
+// font: inherit;
+// border: 1px solid blue;
+// padding: 8px;
+// cursor: pointer;
+// &:hover {
+//   background-color: ${props => props.alt ? 'salmon': 'lightgreen'};
+//   color: brown;
+// }
+// `;
 
 class App extends Component {
 
@@ -75,6 +76,7 @@ class App extends Component {
 
   render() {
 
+
   // const style = {
   //   backgroundColor: 'green',
   //   font: 'inherit',
@@ -88,18 +90,20 @@ class App extends Component {
   // };
 
   let persons = null;
+  let btnClass = [classes.Button];
 
   if (this.state.showPersons){
     persons = (        
       <div>
         {this.state.persons.map((person, index) => {
-          return <Person 
-                  click ={() => this.deletePersonHandler(index)}
-                  name = {person.name} 
-                  age={person.age}
-                  key={person.id}
-                  changed = {(event) => this.nameChangedHandler(event, person.id)}
-                  />
+          return <ErrorBoundary key={person.id}>
+                  <Person 
+                    click ={() => this.deletePersonHandler(index)}
+                    name = {person.name} 
+                    age={person.age}
+                    changed = {(event) => this.nameChangedHandler(event, person.id)}
+                    />
+                  </ErrorBoundary>
         } )}
 
       </div>);
@@ -108,25 +112,28 @@ class App extends Component {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // }
+      btnClass.push(classes.Red);
   }
-    const classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     } 
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     } 
 
 
     return (
       // <StyleRoot>
-        <div className="App">
+        <div className={classes.App}>
           <h1>Hi I am a react App</h1>
-          <p className = {classes.join(' ')}>This is working fine</p>
-          <StyledButton
+          <p className = {assignedClasses.join(' ')}>This is working fine</p>
+          {/* <StyledButton */}
+          <button className={btnClass.join(' ')}
           alt = {this.state.showPersons}
             onClick={this.togglePersonHandler}>Switch Name
-          </StyledButton>
+          </button>
+          {/* </StyledButton> */}
           {persons}
         </div>
       // </StyleRoot>
