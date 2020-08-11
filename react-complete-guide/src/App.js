@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Radium, { StyleRoot } from 'radium';
+// import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
+import styled from 'styled-components';
+
+
+
+const StyledButton = styled.button`
+background-color: ${props => props.alt ? 'red': 'green'};
+color: white;
+font: inherit;
+border: 1px solid blue;
+padding: 8px;
+cursor: pointer;
+&:hover {
+  background-color: ${props => props.alt ? 'salmon': 'lightgreen'};
+  color: brown;
+}
+`;
 
 class App extends Component {
 
@@ -59,17 +75,17 @@ class App extends Component {
 
   render() {
 
-  const style = {
-    backgroundColor: 'green',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer',
-    ':hover': {
-      backgroundColor: 'lightgreen',
-      color: 'brown'
-    }
-  };
+  // const style = {
+  //   backgroundColor: 'green',
+  //   font: 'inherit',
+  //   border: '1px solid blue',
+  //   padding: '8px',
+  //   cursor: 'pointer',
+  //   ':hover': {
+  //     backgroundColor: 'lightgreen',
+  //     color: 'brown'
+  //   }
+  // };
 
   let persons = null;
 
@@ -87,11 +103,11 @@ class App extends Component {
         } )}
 
       </div>);
-      style.backgroundColor="red";
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // style.backgroundColor="red";
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
   }
     const classes = [];
     if (this.state.persons.length <= 2) {
@@ -103,19 +119,20 @@ class App extends Component {
 
 
     return (
-      <StyleRoot>
+      // <StyleRoot>
         <div className="App">
           <h1>Hi I am a react App</h1>
           <p className = {classes.join(' ')}>This is working fine</p>
-          <button
-            style={style} 
+          <StyledButton
+          alt = {this.state.showPersons}
             onClick={this.togglePersonHandler}>Switch Name
-          </button>
+          </StyledButton>
           {persons}
         </div>
-      </StyleRoot>
+      // </StyleRoot>
     );
   }
 }
 
-export default Radium(App);
+// export default Radium(App);
+export default App;
