@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from '../assets/logo.svg';
 import './App.css';
 // import Radium, { StyleRoot } from 'radium';
-import Person from './Person/Person';
+import Person from '../components/Persons/Person/Person';
 // import styled from 'styled-components';
 import classes from './App.css'
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
 
 
 // const StyledButton = styled.button`
@@ -96,14 +96,13 @@ class App extends Component {
     persons = (        
       <div>
         {this.state.persons.map((person, index) => {
-          return <ErrorBoundary key={person.id}>
-                  <Person 
-                    click ={() => this.deletePersonHandler(index)}
-                    name = {person.name} 
-                    age={person.age}
-                    changed = {(event) => this.nameChangedHandler(event, person.id)}
-                    />
-                  </ErrorBoundary>
+          return <Person 
+                  click ={() => this.deletePersonHandler(index)}
+                  name = {person.name} 
+                  age={person.age}
+                  key={person.id}
+                  changed = {(event) => this.nameChangedHandler(event, person.id)}
+                  />
         } )}
 
       </div>);
@@ -130,7 +129,7 @@ class App extends Component {
           <p className = {assignedClasses.join(' ')}>This is working fine</p>
           {/* <StyledButton */}
           <button className={btnClass.join(' ')}
-          alt = {this.state.showPersons}
+          // alt = {this.state.showPersons}
             onClick={this.togglePersonHandler}>Switch Name
           </button>
           {/* </StyledButton> */}
