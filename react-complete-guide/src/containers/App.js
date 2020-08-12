@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
 import logo from '../assets/logo.svg';
 import './App.css';
-// import Radium, { StyleRoot } from 'radium';
 import Person from '../components/Persons/Person/Person';
-// import styled from 'styled-components';
-import classes from './App.css'
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
+import classes from './App.css';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit'
 
-
-// const StyledButton = styled.button`
-// background-color: ${props => props.alt ? 'red': 'green'};
-// color: white;
-// font: inherit;
-// border: 1px solid blue;
-// padding: 8px;
-// cursor: pointer;
-// &:hover {
-//   background-color: ${props => props.alt ? 'salmon': 'lightgreen'};
-//   color: brown;
-// }
-// `;
 
 class App extends Component {
 
@@ -31,15 +18,6 @@ class App extends Component {
     ],
     otherState: 'otherValue',
     showPersons: false
-  }
-
-  switchNameHandler = (newName) => {
-    // console.log('Was Clicked!');
-    this.setState({ persons: [
-      { name: newName, age: 24 },
-      { name: 'Wolfe', age: 26 },
-      { name: 'Jon', age: 32 }
-    ]})
   }
 
   nameChangedHandler = (event, id) => {
@@ -76,66 +54,22 @@ class App extends Component {
 
   render() {
 
-
-  // const style = {
-  //   backgroundColor: 'green',
-  //   font: 'inherit',
-  //   border: '1px solid blue',
-  //   padding: '8px',
-  //   cursor: 'pointer',
-  //   ':hover': {
-  //     backgroundColor: 'lightgreen',
-  //     color: 'brown'
-  //   }
-  // };
-
   let persons = null;
-  let btnClass = [classes.Button];
 
   if (this.state.showPersons){
-    persons = (        
-      <div>
-        {this.state.persons.map((person, index) => {
-          return <Person 
-                  click ={() => this.deletePersonHandler(index)}
-                  name = {person.name} 
-                  age={person.age}
-                  key={person.id}
-                  changed = {(event) => this.nameChangedHandler(event, person.id)}
-                  />
-        } )}
-
-      </div>);
-      // style.backgroundColor="red";
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // }
-      btnClass.push(classes.Red);
+    persons = <Persons persons = {this.state.persons} 
+                  clicked ={this.deletePersonHandler}
+                  changed = {this.nameChangedHandler}
+                  />;
   }
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    } 
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
-    } 
-
-
     return (
-      // <StyleRoot>
         <div className={classes.App}>
-          <h1>Hi I am a react App</h1>
-          <p className = {assignedClasses.join(' ')}>This is working fine</p>
-          {/* <StyledButton */}
-          <button className={btnClass.join(' ')}
-          // alt = {this.state.showPersons}
-            onClick={this.togglePersonHandler}>Switch Name
-          </button>
-          {/* </StyledButton> */}
-          {persons}
+          <Cockpit
+          showPersons = {this.state.showPersons}
+          persons = {this.state.persons}
+          clicked = {this.togglePersonHandler}/>
+          {persons} 
         </div>
-      // </StyleRoot>
     );
   }
 }
