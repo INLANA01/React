@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import logo from '../assets/logo.svg';
+// import logo from '../assets/logo.svg';
 import './App.css';
-import Person from '../components/Persons/Person/Person';
+// import Person from '../components/Persons/Person/Person';
 import classes from './App.css';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+// import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit'
 
@@ -18,6 +18,19 @@ class App extends Component {
     ],
     otherState: 'otherValue',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state){
+      console.log('[App.js getDerivedStateFromProps] ', props);
+      return state;
+  }
+
+  // componentWillMount(){
+  //   console.log('[App.js] componentWillMount');
+  // }
+
+  componentDidMount(){
+    console.log('[App.js] componentDidMount');
   }
 
   nameChangedHandler = (event, id) => {
@@ -53,6 +66,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js render')
 
   let persons = null;
 
@@ -64,7 +78,8 @@ class App extends Component {
   }
     return (
         <div className={classes.App}>
-          <Cockpit
+          <Cockpit 
+          title = {this.props.appTitle}
           showPersons = {this.state.showPersons}
           persons = {this.state.persons}
           clicked = {this.togglePersonHandler}/>
