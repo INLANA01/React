@@ -33,6 +33,25 @@ class App extends Component {
     console.log('[App.js] componentDidMount');
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('[App.js] shouldComponentUpdate'); 
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState){
+      console.log('[App.js] getSnapshotBeforeUpdate...');  
+      return {message: 'Snapshot App huh'};
+  }
+
+  // componentWillMount(){
+  //   console.log('[App.js] componentWillMount');
+  // }
+
+  componentDidUpdate(prevProps, prevState, snapshot){
+      console.log('[App.js] componentDidUpdate...');
+      console.log(snapshot);
+  }
+
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
