@@ -17,7 +17,8 @@ class App extends Component {
       { id: '3', name: 'Jon', age: 32 }
     ],
     otherState: 'otherValue',
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   }
 
   static getDerivedStateFromProps(props, state){
@@ -38,10 +39,10 @@ class App extends Component {
     return true;
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState){
-      console.log('[App.js] getSnapshotBeforeUpdate...');  
-      return {message: 'Snapshot App huh'};
-  }
+  // getSnapshotBeforeUpdate(prevProps, prevState){
+  //     console.log('[App.js] getSnapshotBeforeUpdate...');  
+  //     return {message: 'Snapshot App huh'};
+  // }
 
   // componentWillMount(){
   //   console.log('[App.js] componentWillMount');
@@ -97,11 +98,17 @@ class App extends Component {
   }
     return (
         <div className={classes.App}>
+          <button onClick={() => {
+              this.setState({showCockpit: false});
+            }}>            
+          </button>
+          {this.state.showCockpit ? (
           <Cockpit 
           title = {this.props.appTitle}
           showPersons = {this.state.showPersons}
           persons = {this.state.persons}
           clicked = {this.togglePersonHandler}/>
+          ): null}
           {persons} 
         </div>
     );
