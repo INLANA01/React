@@ -5,8 +5,9 @@ import './App.css';
 import classes from './App.css';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import Persons from '../components/Persons/Persons';
-import Cockpit from '../components/Cockpit/Cockpit'
-
+import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux';
 
 class App extends Component {
 
@@ -97,7 +98,8 @@ class App extends Component {
                   />;
   }
     return (
-        <div className={classes.App}>
+        // <div className={classes.App}>
+        <Aux>
           <button onClick={() => {
               this.setState({showCockpit: false});
             }}>            
@@ -110,10 +112,11 @@ class App extends Component {
           clicked = {this.togglePersonHandler}/>
           ): null}
           {persons} 
-        </div>
+        </Aux>
+        // </div>
     );
   }
 }
 
 // export default Radium(App);
-export default App;
+export default withClass(App, classes.App);
