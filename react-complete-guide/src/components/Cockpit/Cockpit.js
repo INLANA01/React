@@ -1,17 +1,24 @@
-import React, {useEffect} from 'react';
-import classes from './Cockpit.css'
+import React, {useEffect, useRef, useContext} from 'react';
+import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context'
 
 const cockpit = (props) => {
+
+    const toggleBtnRef = useRef(null);
+    const authContext = useContext(AuthContext);
+
+    console.log(authContext.authenticated)
 
     useEffect(() => {
 
         console.log('[Cockpit.js] useEffect');
         //Http Request
-        const timer = setTimeout(()=>{
-            alert('Saved Data to Cloud!');
-        }, 1000);
+        // const timer = setTimeout(()=>{
+        //     alert('Saved Data to Cloud!');
+        // }, 1000);
+        toggleBtnRef.current.click();
         return () => {
-            clearTimeout(timer);
+            // clearTimeout(timer);
             console.log('[Cockpit.js] clean up work in Use Effect')
         }
     }, []);
@@ -40,10 +47,11 @@ const cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className = {assignedClasses.join(' ')}>This is working fine</p>
-            <button 
+            <button ref = {toggleBtnRef}
             className={btnClass}
                 onClick={props.clicked}>Switch Name
             </button>
+            <button onClick={authContext.login}>Log in</button>
         </div>
     );
 }
