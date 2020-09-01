@@ -2,14 +2,17 @@ import React, {Component} from 'react';
 import axios from '../../../axios';
 import Post from '../../../components/Post/Post';
 import './Posts.css';
+import { Link } from 'react-router-dom';
 class Posts extends Component{
     state = {
         posts: [],
         error: false
     }
     postSelectedHnadler = (id) => {
-        this.setState( { selectedPostId: id });
+        // this.setState( { selectedPostId: id });
+        this.props.history.push({pathname: '/' + id})
     }
+
     componentDidMount(){
         console.log(this.props);
         axios.get('/posts').then(
@@ -37,12 +40,16 @@ class Posts extends Component{
         let posts = <p style = {{textAlign: 'center'}}>Something went wrong</p>
         if (!this.state.error){
             posts = this.state.posts.map(post => {
-                return <Post 
-                    key = {post.id} 
-                    title={post.title} 
-                    author = {post.author}
-                    match = {this.props.match}
-                    clicked = {() => this.postSelectedHnadler (post.id) }></Post>;
+                return (
+                    // <Link to={'/' + post.id}key = {post.id} >
+                    <Post 
+                        key = {post.id}
+                        title={post.title} 
+                        author = {post.author}
+                        match = {this.props.match}
+                        clicked = {() => this.postSelectedHnadler (post.id) }></Post>
+                    // </Link>
+                );
             });
         }
         

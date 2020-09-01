@@ -1,5 +1,5 @@
 import React from 'react';
-import { withDrawer } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import './Post.css';
 
 
@@ -15,4 +15,4 @@ const post = (props) => {
     );
     }
 
-export default withDrawer(post);
+export default withRouter(post);
